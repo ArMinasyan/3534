@@ -76,48 +76,47 @@
 
             <!-- list group -->
             <div class="list-group list-group-flush">
-                <a href="dashboard.html" class="list-group-item list-group-item-action waves-effect">
+                <a href="Summary.html" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-pencil-alt mr-3"></i>
 
                     <span>Summary report</span>
                 </a>
-                <a href="contactus.html" class="list-group-item list-group-item-action waves-effect">
+                <a href="DataReplicated.html" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-digital-tachograph mr-3"></i>
                     <span>Data Replicated</span>
                 </a>
-                <a href="charts.html" class="list-group-item list-group-item-action waves-effect">
+                <a href="Charts.html" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-chart-bar mr-3"></i>
                     <span>Charts</span>
                 </a>
-                <a href="products.html" class="list-group-item list-group-item-action waves-effect">
+                <a href="CartrigeTable.html" class="list-group-item list-group-item-action waves-effect active-link">
                     <i class="fas fa-chart-pie mr-3"></i>
-                    <span>Cartridge Types</span>
+                    <span>Cartridge</span>
                 </a>
-                <a href="about.html" class="list-group-item list-group-item-action waves-effect">
+                <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-chart-line mr-3"></i>
                     <span>Criteria</span>
-                </a>
-                <a href="about.html" class="list-group-item list-group-item-action waves-effect">
+                </a> -->
+                <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-clipboard-list mr-3"></i>
                     <span>EU List</span>
-                </a>
-                <a href="index.html" class="list-group-item list-group-item-action waves-effect active-link">
+                </a> -->
+                <a href="TorchTable.html" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-table mr-3"></i>
                     <span>Torch table</span>
                 </a>
                 <a href="FaultCodeTable.html" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-file-code mr-3"></i>
                     <span>Fault Code Table</span>
-
                 </a>
                 <a href="PowerSupplyTable.html" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-tablets mr-3"></i>
                     <span>Power supply table</span>
                 </a>
-                <a href="about.html" class="list-group-item list-group-item-action waves-effect">
+                <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-border-all mr-3"></i>
                     <span>Cartridge table</span>
-                </a>
+                </a> -->
             </div>
 
         </div>
@@ -129,7 +128,7 @@
     <!--Main layout-->
     <main class="py-5 mx-lg-5">
 
-        <div class="container-fluid mt-5">
+        <div class="container-fluid my-5">
 
             <!-- Grid row -->
             <div class="row">
@@ -300,12 +299,43 @@
             </div>
             <!-- Grid row -->
 
+            <!-- Grid row -->
+            <div class="row">
+                <div class=" offset-2 col-8">
+                    <div class="card card-body mt-5">
+                        <table id="CartrigeType" class="table table-striped" class="display" width="100%">
+                            <tbody>
+                                <tr>
+                                    <th scope="row"  class="text-center">1</th>
+                                    <td class="text-center"> G RMVL</td>
+                                    <td class="text-center"> Handheld</td>
+                                </tr>
+                                
+                                <tr>
+                                    <th scope="row" class="text-center">2</th>
+                                    <td class="text-center">C MECH</td>
+                                    <td class="text-center">Mechanized</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-center">3</th>
+                                    <td class="text-center"> C MFNC</td>
+                                    <td class="text-center"> Mechanized</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-center">4</th>
+                                    <td class="text-center">0</td>
+                                    <td class="text-center">Mechanized</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Grid row -->
+
         </div>
     </main>
     <!--Main layout-->
-
-    <!--/.Footer-->
-
 
     <!-- JQuery -->
     <script src="js/jquery-3.4.1.min.js"></script>
