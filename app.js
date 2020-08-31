@@ -204,7 +204,7 @@ app.get('/item', function (req, res) {
 //  http://localhost:8000/item?serialNumber=
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'views', 'Charts.html'));
+    res.sendFile(path.join(__dirname, 'views', 'charts.html'));
 })
 app.get('/:name', function (req, res) {
     res.sendFile(path.join(__dirname, 'views', req.params.name));
