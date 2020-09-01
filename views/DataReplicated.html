@@ -265,23 +265,16 @@
         "scrollX": true
       });
 
-
       sessionStorage.setItem("avg_of_starts", res.chart[0]);
       sessionStorage.setItem("avg_of_transfers", res.chart[1])
       sessionStorage.setItem("avg_of_arc_hours", res.chart[2])
-
     })
-
   });
 
   $('#Live tbody').on('click', 'tr', function () {
     let data = $('#Live').DataTable().row(this).data();
     ownChart(parseInt(data[6]), parseInt(data[7]))
-
   });
- 
-
-
 
 
   let ownChart = (a, b) => {
