@@ -149,20 +149,20 @@
       <!-- Grid row -->
       <div class="row">
         <div class="col-12">
-          <div class="card cardcustom-header">
+          <div class="card ">
 
             <!-- Table  -->
-            <table class="table table-striped">
+            <table class="table table-striped" class="display" width="100%" id="FaultCodeTable">
               <!-- Table head -->
-              <thead class=" lighten-4 ">
-                <tr class="chart-tableFooter">
-                  <th scope="col">Numbers</th>
-                  <th scope="col">Utility Fault Code</th>
-                  <th scope="col">Fault code</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Recommendations</th>
-                  <th scope="col">Count</th>
-                  <th scope="col">MAX</th>
+              <thead class=" black white-text">
+                <tr>
+                  <th scope="col" class="th-sm text-center">Numbers</th>
+                  <th scope="col" class="th-sm text-center">Utility Fault Code</th>
+                  <th scope="col" class="th-sm text-center">Fault code</th>
+                  <th scope="col" class="th-sm text-center">Description</th>
+                  <th scope="col" class="th-sm text-center">Recommendations</th>
+                  <th scope="col" class="th-sm text-center">Count</th>
+                  <th scope="col" class="th-sm text-center">MAX</th>
                 </tr>
               </thead>
               <!-- Table head -->
@@ -949,9 +949,10 @@
   <script src="https://maps.google.com/maps/api/js"></script>
 
   <script>
-    $(document).ready(function () {
-      $()
-    })
+    // $(document).ready(function () {
+      
+    //   $('#FaultCodeTable').DataTable()
+    // })
   </script>
 </body>
 

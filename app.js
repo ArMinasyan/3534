@@ -4,13 +4,11 @@ let express = require('express'),
     app = express();
 
 let bodyparser = require('body-parser'),
-    // { Sequelize } = require('sequelize'),
     _ = require('underscore'),
     axios = require('axios').default,
     xml_js = require('xml-js'),
     cors = require('cors'),
-    path = require('path'),
-    fs = require('fs');
+    path = require('path');
 
 
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -53,7 +51,6 @@ app.get('/item', function (req, res) {
         let data = JSON.parse(xml_js.xml2json(result.data, { compact: true })).
             MTConnectAssets.Assets.HyperthermCartridge;
 
-        let temp = [];
         let DataArray = [];
         for (let i = 0; i < data.length; i++) {
             avg_of_starts += parseInt(data[i].OperationalData.NumberOfStarts._text);
