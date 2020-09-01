@@ -263,6 +263,10 @@
       
     });
   
+    $('#Live tbody').on('click','tr',function(){
+        let data = $('#Live').DataTable().row(this).data();
+        consoloe.log(data);
+    });
 </script>
 
 </html>
