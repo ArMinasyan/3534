@@ -54,7 +54,7 @@
               </select>
 
             </div>
-           
+
           </div>
 
         </form>
@@ -105,50 +105,50 @@
         </div>
       </a>
 
-          <!-- list group -->
-          <div class="list-group list-group-flush">
-            <a href="Summary.html" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-pencil-alt mr-3"></i>
+      <!-- list group -->
+      <div class="list-group list-group-flush">
+        <a href="Summary.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-pencil-alt mr-3"></i>
 
-                <span>Summary report</span>
-            </a>
-            <a href="DataReplicated.html" class="list-group-item list-group-item-action waves-effect  active-link">
-                <i class="fas fa-digital-tachograph mr-3"></i>
-                <span>Data Replicated</span>
-            </a>
-            <a href="charts.html" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-chart-bar mr-3"></i>
-                <span>Charts</span>
-            </a>
-            <a href="CartrigeTable.html" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-chart-pie mr-3"></i>
-                <span>Cartridge</span>
-            </a>
-            <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
+          <span>Summary report</span>
+        </a>
+        <a href="DataReplicated.html" class="list-group-item list-group-item-action waves-effect  active-link">
+          <i class="fas fa-digital-tachograph mr-3"></i>
+          <span>Data Replicated</span>
+        </a>
+        <a href="charts.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-chart-bar mr-3"></i>
+          <span>Charts</span>
+        </a>
+        <a href="CartrigeTable.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-chart-pie mr-3"></i>
+          <span>Cartridge</span>
+        </a>
+        <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-chart-line mr-3"></i>
                 <span>Criteria</span>
             </a> -->
-            <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
+        <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-clipboard-list mr-3"></i>
                 <span>EU List</span>
             </a> -->
-            <a href="TorchTable.html" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-table mr-3"></i>
-                <span>Torch table</span>
-            </a>
-            <a href="FaultCodeTable.html" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-file-code mr-3"></i>
-                <span>Fault Code Table</span>
-            </a>
-            <a href="PowerSupplyTable.html" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-tablets mr-3"></i>
-                <span>Power supply table</span>
-            </a>
-            <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
+        <a href="TorchTable.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-table mr-3"></i>
+          <span>Torch table</span>
+        </a>
+        <a href="FaultCodeTable.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-file-code mr-3"></i>
+          <span>Fault Code Table</span>
+        </a>
+        <a href="PowerSupplyTable.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-tablets mr-3"></i>
+          <span>Power supply table</span>
+        </a>
+        <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-border-all mr-3"></i>
                 <span>Cartridge table</span>
             </a> -->
-        </div>
+      </div>
 
 
     </div>
@@ -163,7 +163,17 @@
 
       <!-- table live table -->
       <div class="row">
+
+        <div class="offset-4 col-4">
+          <!--  -->
+          <div class="card card-body">
+            <canvas id="doughnutChart" height="200"></canvas>
+          </div>
+        </div>
         <div class="col-12">
+
+
+
           <div class="card card-body mt-5">
             <table id="Live" class="table table-striped" class="display" width="100%">
               <thead>
@@ -238,7 +248,7 @@
 <!-- MDB core JavaScript -->
 <script src="js/mdb.min.js"></script>
 <!-- Initializations -->
-<script src="js/custom.js"></script>
+<!-- <script src="js/custom.js"></script> -->
 <!-- MDBootstrap Datatables  -->
 <!-- <script type="javascript" src="js/addons/datatables.min.js"></script> -->
 <!-- <script type="javascript" src="js/addons/datatables-select.js"></script> -->
@@ -248,28 +258,48 @@
 
 <script>
   $(document).ready(function () {
-    $.get('/item',function(res){
+    $.get('/item', function (res) {
       $('#Live').DataTable({
         serverside: true,
         data: res.data,
         "scrollX": true
       });
 
-      
-      sessionStorage.setItem("avg_of_starts",res.chart[0]);
-      sessionStorage.setItem("avg_of_transfers",res.chart[1])
-      sessionStorage.setItem("avg_of_arc_hours",res.chart[2])
+
+      sessionStorage.setItem("avg_of_starts", res.chart[0]);
+      sessionStorage.setItem("avg_of_transfers", res.chart[1])
+      sessionStorage.setItem("avg_of_arc_hours", res.chart[2])
+
     })
-      
+
+  });
+
+  $('#Live tbody').on('click', 'tr', function () {
+    let data = $('#Live').DataTable().row(this).data();
+    ownChart(parseInt(data[6]), parseInt(data[7]))
+
+  });
+ 
+
+
+
+
+  let ownChart = (a, b) => {
+    let ctxD = document.getElementById("doughnutChart").getContext('2d');
+    new Chart(ctxD, {
+      type: 'doughnut',
+      data: {
+        labels: ["Chart Transfer", "Chart Start"],
+        datasets: [{
+          data: [a, b],
+          backgroundColor: ["#00FF00", "#FF0000"],
+        }]
+      },
+      options: {
+        responsive: true
+      }
     });
-  
-    $('#Live tbody').on('click','tr',function(){
-        let data = $('#Live').DataTable().row(this).data();
-        console.log(data[6]+' '+data[7]);
-        
-        sessionStorage.setItem('own_start',data[6]);
-        sessionStorage.setItem('own_transfer',data[7])
-    });
+  }
 </script>
 
 </html>
