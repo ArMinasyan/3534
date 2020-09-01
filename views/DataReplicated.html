@@ -265,7 +265,10 @@
   
     $('#Live tbody').on('click','tr',function(){
         let data = $('#Live').DataTable().row(this).data();
-        consoloe.log(data);
+        console.log(data[6]+' '+data[7]);
+        
+        sessionStorage.setItem('own_start',data[6]);
+        sessionStorage.setItem('own_transfer',data[7])
     });
 </script>
 
