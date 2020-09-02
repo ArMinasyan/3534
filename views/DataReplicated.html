@@ -164,17 +164,14 @@
       <!-- table live table -->
       <div class="row">
 
-        <div class="offset-4 col-4">
-          <!--  -->
+        <!-- <div class="offset-4 col-4">
           <div class="card card-body">
             <canvas id="doughnutChart" height="200"></canvas>
           </div>
-        </div>
+        </div> -->
+
         <div class="col-12">
-
-
-
-          <div class="card card-body mt-5">
+          <div class="card card-body mt-4">
             <table id="Live" class="table table-striped" class="display" width="100%">
               <thead>
                 <tr>
@@ -187,13 +184,6 @@
                   <th class="th-sm text-center">Number Of Starts</th>
                   <th class="th-sm text-center">Number Of Transfers</th>
                   <th class="th-sm text-center">Manufacturing Date</th>
-                  <th class="th-sm text-center">Part Number</th>
-                  <th class="th-sm text-center">Timestamp</th>
-                  <th class="th-sm text-center">Serial Number</th>
-                  <th class="th-sm text-center">Test Status</th>
-                  <th class="th-sm text-center">End of Life</th>
-                  <th class="th-sm text-center">Faults</th>
-                  <th class="th-sm text-center">Type</th>
                 </tr>
               </thead>
               <tbody id="livetable">
@@ -210,13 +200,6 @@
                   <th class="th-sm text-center">Number Of Starts</th>
                   <th class="th-sm text-center">Number Of Transfers</th>
                   <th class="th-sm text-center">Manufacturing Date</th>
-                  <th class="th-sm text-center">Part Number</th>
-                  <th class="th-sm text-center">Timestamp</th>
-                  <th class="th-sm text-center">Serial Number</th>
-                  <th class="th-sm text-center">Test Status</th>
-                  <th class="th-sm text-center">End of Life</th>
-                  <th class="th-sm text-center">Faults</th>
-                  <th class="th-sm text-center">Type</th>
                 </tr>
               </tfoot>
             </table>
@@ -229,6 +212,71 @@
   </main>
   <!-- Main -->
 
+  <div id="dialog" title="More Result">
+
+    <div>
+      Manufacturer: <span id="manufacturer"></span>
+    </div>
+    <div>
+      AssetId: <span id="assetId"></span>
+    </div>
+    <div>
+      UUID: <span id="UUID"></span>
+    </div>
+    <div>
+      Arc Time: <span id="ArcTime"></span>
+    </div>
+    <div>
+      Pilot Time: <span id="PilotTime"></span>
+    </div>
+    <div>
+      Transfer Time: <span id="TransferTime"></span>
+    </div>
+    <div>
+      Number Of Starts: <span id="NumberOfStarts"></span>
+    </div>
+    <div>
+      Number Of Transfers: <span id="NumberOfTransfers"></span>
+    </div>
+    <div>
+      Manufacturing Date: <span id="ManufacturingDate"></span>
+    </div>
+    <div>
+      Part Number: <span id="PartNumber"></span>
+    </div>
+    <div>
+      Timestamp: <span id="timestamp"></span>
+    </div>
+    <div>
+      Serial Number: <span id="SerialNumber"></span>
+    </div>
+    <div>
+      Manufacturing Test Status: <span id="ManufacturingTestStatus"></span>
+    </div>
+    <div>
+      End of Live: <span id="EndofLive"></span>
+    </div>
+    <div>
+      Faults <span id="Faults"></span>
+    </div>
+    <div>
+      Cartrige Type: <span id="CartrigeType"></span>
+    </div>
+    <div>
+      Device UUID: <span id="deviceUUID"></span>
+    </div>
+    <div>
+      Part Number Revision: <span id="PartNumberRevision"></span>
+    </div>
+    <div>
+      Cartrige Design Revision: <span id="CartrigeDesignRevision"></span>
+    </div>
+    <div class="offset-4 col-4">
+      <div class="card card-body">
+        <canvas id="doughnutChart" height="200"></canvas>
+      </div>
+    </div>
+  </div>
 </body>
 
 <!-- SCRIPTS -->
@@ -249,6 +297,9 @@
 <script src="js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script src="js/mdb.min.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- Initializations -->
 <!-- <script src="js/custom.js"></script> -->
 <!-- MDBootstrap Datatables  -->
@@ -259,15 +310,17 @@
 
 
 <script>
+
   $(document).ready(function () {
     $.get('/item', function (res) {
+      //console.log(res.data);
       $('#Live').DataTable({
         serverside: true,
         data: res.data,
         "scrollX": true,
         "columnDefs": [{
           'visible': false,
-          'targets': [9, 10, 11, 12, 13, 14, 15]
+          'targets': [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
         }],
 
       });
@@ -280,8 +333,48 @@
 
   $('#Live tbody').on('click', 'tr', function () {
     let data = $('#Live').DataTable().row(this).data();
-    // ownChart(parseInt(data[6]), parseInt(data[7]))
-    console.log(data);
+    //console.log(data);
+
+    $("#manufacturer").text(data[0]);
+    $("#assetId").text(data[1]);
+    $("#UUID").text(data[2]);
+    $("#ArcTime").text(data[3]);
+    $("#PilotTime").text(data[4]);
+    $("#TransferTime").text(data[5]);
+    $("#NumberOfStarts").text(data[6]);
+    $("#NumberOfTransfers").text(data[7]);
+    $("#ManufacturingDate").text(data[8]);
+    $("#PartNumber").text(data[9]);
+    $("#timestamp").text(data[10]);
+    $("#deviceUUID").text(data[11]);
+    $("#ManufacturingTestStatus").text(data[12]);
+    $("#EndofLive").text(data[13]);
+    $("#Faults").text(data[14]);
+    $("#CartrigeType").text(data[15]);
+    $("#SerialNumber").text(data[16]);
+
+    $("#PartNumberRevision").text(data[17]);
+    $("#CartrigeDesignRevision").text(data[18]);
+
+    $("#dialog").dialog({
+      modal: false,
+      width: "500px",
+    });
+
+    ownChart(parseInt(data[6]), parseInt(data[7]))
+
+
+    //console.log(data);
+    //$(this).css('height', "300px");
+    //$(this).insertBefore('<tr><td>Hello</td></tr>')
+    // $('<tr>' +
+    //   '<div class="offset-4 col-4">' +
+    //   '<div class="card card-body">' +
+    //   '<canvas id="doughnutChart" height="100"></canvas> ' +
+    //   '</div>' +
+    //   '</div>' +
+    //   '</tr>'
+    // ).insertBefore(row);
   });
 
 
