@@ -16,14 +16,21 @@ app.use(bodyparser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+let config;
+if (process.env.NODE_ENV.trim() == 'development') {
+    config = require('./config.json').development;
+
+} else config = require('./config.json').production
+
 let WhiteList = ['http://127.0.0.1:8000'];
 
-app.use(cors({
-    origin: function (origin, cb) {
-        if (WhiteList.indexOf(origin) !== -1 || !origin) cb(null, true);
-        else cb('CORS Blocked', false);
-    }
-}));
+// app.use(cors({
+//     origin: function (origin, cb) {
+//         if (WhiteList.indexOf(origin) !== -1 || !origin) cb(null, true);
+//         else cb('CORS Blocked', false);
+
+//     }
+// }));
 
 
 let FaulttoStringArray = (fault) => {
@@ -132,51 +139,41 @@ app.get('/item', function (req, res) {
 
 
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'views', 'DataReplicated.html'));
-})
+// app.get('/', function (req, res) {
+//     res.sendFile(path.join(__dirname, 'views', 'Account.html'));
+// })
+
 app.get('/:name', function (req, res) {
     res.sendFile(path.join(__dirname, 'views', req.params.name));
+})
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'views', 'DataReplicated.html'));
+    //console.log(true);
 })
 
 
 
 //Login and Reg. Routes
-let { body, validationResult } = require('express-validator');
-let user = require('./models/user');
-let bcrypt = require('bcrypt');
+
+
+
 let mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/3534", {
+
+
+mongoose.connect(config.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
-let validation = [
-    body('email').trim().not().isEmpty().withMessage('Email field is required').isEmail().withMessage('Enter valid email address'),
-    body('password').trim().not().isEmpty().withMessage('Password field is requires'),
-    body('confirm_password').trim().not().isEmpty().withMessage('Confirm password field is required').custom((val, { req }) => {
-        if (val != req.body.password) throw new Error('Password confirmation does not match password');
-        else return true
-    })
-]
 
-app.post('/registration', validation, function (req, res) {
-    let vr = validationResult(req);
-    if (!vr.isEmpty()) res.send(vr.errors[0]);
-    else {
-        user.findOne({ email: req.body.email }, function (err, result) {
-            if (result) res.json({ "msg": "Username already exist" }); else {
-                let User = new user({
-                    email: req.body.email,
-                    password: bcrypt.hashSync(req.body.password, 10),
-                });
-                User.save(function (err, doc) {
-                    if (!err && doc) res.json({ "msg": "Account successfuly created" });
-                })
-            }
+let sign_in = require('./routes/sign_in'),
+    sign_up = require('./routes/sign_up');
 
-        })
-    }
-})
+app.use('/user', [sign_in, sign_up]);
+
+
+
+
 
 app.listen(process.env.PORT || 8000, function () {
     console.log('Start...');

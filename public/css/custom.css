@@ -163,3 +163,10 @@ body {
 .form-content {
   width: 300px;
 }
+
+/* Account page */
+
+
+.account-container .tab_link {
+  color:#fff;
+} 
