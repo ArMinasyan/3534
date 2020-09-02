@@ -82,6 +82,7 @@ app.get('/item', function (req, res) {
                 data[i].ManufacturingData.ManufacturingTestStatus._text,
                 parseInt(data[i].OperationalData.EndOfLifeEventCount._text),
                 data[i].OperationalData.Faults._attributes.faultCount > 0 ? FaulttoStringArray(data[i].OperationalData.Faults.Fault) : '',
+                data[i].ManufacturingData.CartridgeType._text,
             ])
 
             // DataArray.push([
@@ -95,7 +96,7 @@ app.get('/item', function (req, res) {
             //-     data[i].ManufacturingData.UUID._text,
             //-     data[i].ManufacturingData.PartNumber._text, 
             //     data[i].ManufacturingData.PartNumberRevision._text,
-            //     data[i].ManufacturingData.CartridgeType._text,
+            //-     data[i].ManufacturingData.CartridgeType._text,
             //     data[i].ManufacturingData.CartridgeDesignRevision._text,
             //-     data[i].ManufacturingData.ManufacturingDate._text,
             //-     data[i].ManufacturingData.ManufacturingTestStatus._text,

@@ -11,19 +11,19 @@ body {
   background: #E5E5E5;
 }
 
-.map-container{
-  overflow:hidden;
-  padding-bottom:56.25%;
-  position:relative;
-  height:0;
+.map-container {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
 }
 
-.map-container iframe{
-  left:0;
-  top:0;
-  height:100%;
-  width:100%;
-  position:absolute;
+.map-container iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 /* Dashboard Page Style */
@@ -152,7 +152,7 @@ body {
   border-radius: 18px;
 }
 
-.chart-tableFooter  {
+.chart-tableFooter {
   font-size: 12px;
   line-height: 14px;
   letter-spacing: 0.195px;

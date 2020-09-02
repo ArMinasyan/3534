@@ -193,6 +193,7 @@
                   <th class="th-sm text-center">Test Status</th>
                   <th class="th-sm text-center">End of Life</th>
                   <th class="th-sm text-center">Faults</th>
+                  <th class="th-sm text-center">Type</th>
                 </tr>
               </thead>
               <tbody id="livetable">
@@ -215,6 +216,7 @@
                   <th class="th-sm text-center">Test Status</th>
                   <th class="th-sm text-center">End of Life</th>
                   <th class="th-sm text-center">Faults</th>
+                  <th class="th-sm text-center">Type</th>
                 </tr>
               </tfoot>
             </table>
@@ -262,7 +264,12 @@
       $('#Live').DataTable({
         serverside: true,
         data: res.data,
-        "scrollX": true
+        "scrollX": true,
+        "columnDefs": [{
+          'visible': false,
+          'targets': [9, 10, 11, 12, 13, 14, 15]
+        }],
+
       });
 
       sessionStorage.setItem("avg_of_starts", res.chart[0]);
@@ -273,7 +280,8 @@
 
   $('#Live tbody').on('click', 'tr', function () {
     let data = $('#Live').DataTable().row(this).data();
-    ownChart(parseInt(data[6]), parseInt(data[7]))
+    // ownChart(parseInt(data[6]), parseInt(data[7]))
+    console.log(data);
   });
 
 
