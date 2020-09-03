@@ -177,7 +177,9 @@
                 <tr>
                   <th class="th-sm text-center">Manufacturer</th>
                   <th class="th-sm text-center">Asset ID</th>
+
                   <th class="th-sm text-center">UUID</th>
+                  <th class="th-sm text-center">EOL</th>
                   <th class="th-sm text-center">ArcTime</th>
                   <th class="th-sm text-center">PilotTime</th>
                   <th class="th-sm text-center">TransferTime</th>
@@ -193,7 +195,9 @@
                 <tr>
                   <th class="th-sm text-center">Manufacturer</th>
                   <th class="th-sm text-center">Asset ID</th>
+
                   <th class="th-sm text-center">UUID</th>
+                  <th class="th-sm text-center">EOL</th>
                   <th class="th-sm text-center">ArcTime</th>
                   <th class="th-sm text-center">PilotTime</th>
                   <th class="th-sm text-center">TransferTime</th>
@@ -320,6 +324,7 @@
     })
   })
   $(document).ready(function () {
+    //$('#diallog').last().hide();
     $.get('/item', function (res) {
       //console.log(res.data);
       $('#Live').DataTable({
@@ -330,9 +335,13 @@
           'visible': false,
           'targets': [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
         }],
-
       });
 
+      let str
+      //console.log(res.data);
+      res.data.forEach(elem => {
+        console.log(elem[7], elem[8]);
+      })
       sessionStorage.setItem("avg_of_starts", res.chart[0]);
       sessionStorage.setItem("avg_of_transfers", res.chart[1])
       sessionStorage.setItem("avg_of_arc_hours", res.chart[2])
@@ -346,23 +355,23 @@
     $("#manufacturer").text(data[0]);
     $("#assetId").text(data[1]);
     $("#UUID").text(data[2]);
-    $("#ArcTime").text(data[3]);
-    $("#PilotTime").text(data[4]);
-    $("#TransferTime").text(data[5]);
-    $("#NumberOfStarts").text(data[6]);
-    $("#NumberOfTransfers").text(data[7]);
-    $("#ManufacturingDate").text(data[8]);
-    $("#PartNumber").text(data[9]);
-    $("#timestamp").text(data[10]);
-    $("#deviceUUID").text(data[11]);
-    $("#ManufacturingTestStatus").text(data[12]);
-    $("#EndofLive").text(data[13]);
+    $("#EndofLive").text(data[3]);
+    $("#ArcTime").text(data[4]);
+    $("#PilotTime").text(data[5]);
+    $("#TransferTime").text(data[6]);
+    $("#NumberOfStarts").text(data[7]);
+    $("#NumberOfTransfers").text(data[8]);
+    $("#ManufacturingDate").text(data[9]);
+    $("#PartNumber").text(data[10]);
+    $("#timestamp").text(data[11]);
+    $("#deviceUUID").text(data[12]);
+    $("#ManufacturingTestStatus").text(data[13]);
     $("#Faults").text(data[14]);
     $("#CartrigeType").text(data[15]);
     $("#SerialNumber").text(data[16]);
-
     $("#PartNumberRevision").text(data[17]);
     $("#CartrigeDesignRevision").text(data[18]);
+
 
     $("#dialog").dialog({
       modal: false,

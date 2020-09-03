@@ -77,7 +77,9 @@ app.get('/item', defender, function (req, res) {
             DataArray.push([
                 data[i]._attributes.manufacturer,
                 data[i]._attributes.assetId,
+
                 data[i].ManufacturingData.UUID._text,
+                parseInt(data[i].OperationalData.EndOfLifeEventCount._text),
                 parseInt(data[i].OperationalData.ArcTime._text),
                 parseInt(data[i].OperationalData.PilotTime._text),
                 parseInt(data[i].OperationalData.TransferTime._text),
@@ -88,7 +90,7 @@ app.get('/item', defender, function (req, res) {
                 new Date(data[i]._attributes.timestamp),
                 data[i]._attributes.serialNumber,
                 data[i].ManufacturingData.ManufacturingTestStatus._text,
-                parseInt(data[i].OperationalData.EndOfLifeEventCount._text),
+
                 data[i].OperationalData.Faults._attributes.faultCount > 0 ? FaulttoStringArray(data[i].OperationalData.Faults.Fault) : '-',
                 data[i].ManufacturingData.CartridgeType._text,
                 data[i]._attributes.deviceUuid,
@@ -118,6 +120,7 @@ app.get('/:name', defender, function (req, res) {
 })
 
 app.get('/', function (req, res) {
+    if (req.cookies.token) res.redirect('/data');
     res.sendFile(path.join(__dirname, 'views', 'Account.html'));
 })
 
