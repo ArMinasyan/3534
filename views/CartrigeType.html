@@ -26,28 +26,28 @@
     <header>
 
         <!-- Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar py-0">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar py-4">
             <div class="container-fluid">
 
                 <form id="filter" class="form-inline d-flex md-form my-3">
-                    <div class="form-row">
-                        <div class="col form-content d-flex justify-content-center">
-
-
-                            <select id="filter_value" class="browser-default custom-select">
-                                <option>Find By</option>
-                                <option value="assetId">Asset ID</option>
-                                <option value="UUID">UUID</option>
-                                <option value="ManufacturingDate">Manufacturing Date</option>
-                                <option value="manufacturer">Manufacturer</option>
-                                <option value="serialNumber">Serial Number</option>
-                            </select>
-
-                        </div>
-                    </div>
+                    <!-- <div class="form-row">
+                      <div class="col form-content d-flex justify-content-center">
+          
+          
+                        <select id="filter_value" class="browser-default custom-select">
+                          <option>Find By</option>
+                          <option value="assetId">Asset ID</option>
+                          <option value="UUID">UUID</option>
+                          <option value="ManufacturingDate">Manufacturing Date</option>
+                          <option value="manufacturer">Manufacturer</option>
+                          <option value="serialNumber">Serial Number</option>
+                        </select>
+          
+                      </div>
+                    </div> -->
 
                 </form>
-                <i class="fas fa-sign-out-alt fa-lg" id="logout">LogOut</i>
+
                 <!-- Collapse -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -55,8 +55,16 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Links -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <ul class="navbar-nav nav-flex-icons ml-auto">
+                        <li class="nav-item border-left border-right">
+                            <a href="#" class="nav-link waves-effect">
+                                <i class="fas fa-sign-out-alt fa-lg" id="logout">LogOut</i>
+                            </a>
+                        </li>
+
+                    </ul>
 
                 </div>
 

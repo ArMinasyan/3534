@@ -23,13 +23,14 @@
   <header>
 
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar py-0">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar py-4">
       <div class="container-fluid">
 
         <form id="filter" class="form-inline d-flex md-form my-3">
-          <div class="form-row">
+          <!-- <div class="form-row">
+            <div class="col form-content d-flex justify-content-center">
 
-            <div class="col">
+
               <select id="filter_value" class="browser-default custom-select">
                 <option>Find By</option>
                 <option value="assetId">Asset ID</option>
@@ -40,9 +41,10 @@
               </select>
 
             </div>
-          </div>
+          </div> -->
+
         </form>
-        <i class="fas fa-sign-out-alt fa-lg" id="logout">LogOut</i>
+
         <!-- Collapse -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,21 +57,10 @@
           <ul class="navbar-nav nav-flex-icons ml-auto">
             <li class="nav-item border-left border-right">
               <a href="#" class="nav-link waves-effect">
-                <i class="fa fa-bell" aria-hidden="true"></i>
+                <i class="fas fa-sign-out-alt fa-lg" id="logout">LogOut</i>
               </a>
             </li>
-            <li class="nav-item dropdown mx-5">
-              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right dropdown-default"
-                aria-labelledby="navbarDropdownMenuLink-333">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
+
           </ul>
 
         </div>
