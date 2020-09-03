@@ -6,7 +6,7 @@ let fs = require('fs');
 let user = require('../models/user');
 let bcrypt = require('bcrypt');
 
-route.post('/login', valid.log_validation, function (req, res) {
+route.post('/login', [valid.log_validation], function (req, res) {
     let vr = validationResult(req);
     if (!vr.isEmpty()) res.send(vr.errors[0]);
     else {
@@ -14,13 +14,14 @@ route.post('/login', valid.log_validation, function (req, res) {
             if (result) {
                 bcrypt.compare(req.body.password, result.password, function (err, same) {
                     if (!err && same) {
-                        let token = jwt.sign({ id: result._id, time: Date.now() }, fs.readFileSync('./keys/Private.key'));
+                        let token = jwt.sign({ id: result._id, time: Date.now() }, fs.readFileSync('./keys/Private.key'), { algorithm: "RS512" });
                         //console.log(token);
-                        // res.cookie("token", token, {
-                        //     sameSite: true,
-                        //     httpOnly: true
-                        // });
-                        res.json({ "login": true, "token": token });
+                        res.cookie("token", token, {
+                            sameSite: true,
+                            httpOnly: true
+                        });
+                        res.json({ "login": true });
+                        
                     } else res.json({ "msg": "Incorrect email and/or password" });
                 })
             } else res.json({ "msg": "Incorrect email and/or password" });

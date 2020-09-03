@@ -50,7 +50,7 @@
             </div>
           </div>
         </form>
-
+        <i class="fas fa-sign-out-alt fa-lg" id="logout">LogOut</i>
         <!-- Collapse -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -498,6 +498,16 @@
 </body>
 
 <script>
+  $(document).on('click', '#logout', function () {
+    $.ajax({
+      url: '/logout',
+      method: 'DELETE',
+      success: function (data) {
+        if (!data.login) window.location.href = '/';
+      }
+    })
+  })
+
   $(document).ready(function () {
     let chart = sessionStorage;
 

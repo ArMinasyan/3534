@@ -4,6 +4,7 @@ let express = require('express'),
     app = express();
 
 let bodyparser = require('body-parser'),
+    cookieparser = require('cookie-parser'),
     _ = require('underscore'),
     axios = require('axios').default,
     xml_js = require('xml-js'),
@@ -13,7 +14,7 @@ let bodyparser = require('body-parser'),
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
-
+app.use(cookieparser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 let config;
@@ -49,9 +50,9 @@ let GetObjectValues = (obj, temp = {}) => {
 }
 
 
+let defender = require('./config/defender');
 
-
-app.get('/item', function (req, res) {
+app.get('/item', defender, function (req, res) {
     let avg_of_starts = 0, avg_of_transfers = 0, avg_of_arc_hours = 0;
     axios.get('https://lib-mtconnect-cartridge.azurewebsites.net/assets').then(result => {
 
@@ -95,44 +96,12 @@ app.get('/item', function (req, res) {
                 data[i].ManufacturingData.CartridgeDesignRevision._text,
 
             ])
-
-            // DataArray.push([
-
-            //-     data[i]._attributes.manufacturer, 
-            //-     data[i]._attributes.serialNumber,
-            //-     new Date(data[i]._attributes.timestamp),
-            //-     data[i]._attributes.deviceUuid,
-            //-     data[i]._attributes.assetId,
-            //     data[i].ManufacturingData.Description._text,
-            //-     data[i].ManufacturingData.UUID._text,
-            //-     data[i].ManufacturingData.PartNumber._text, 
-            //-     data[i].ManufacturingData.PartNumberRevision._text,
-            //-     data[i].ManufacturingData.CartridgeType._text,
-            //-     data[i].ManufacturingData.CartridgeDesignRevision._text,
-            //-     data[i].ManufacturingData.ManufacturingDate._text,
-            //-     data[i].ManufacturingData.ManufacturingTestStatus._text,
-            //      data[i].OperationalData.Description._text,
-            //-     parseInt(data[i].OperationalData.ArcTime._text),
-            //-     parseInt(data[i].OperationalData.PilotTime._text),
-            //-     parseInt(data[i].OperationalData.TransferTime._text),
-            //-     parseInt(data[i].OperationalData.NumberOfStarts._text),
-            //-     parseInt(data[i].OperationalData.NumberOfTransfers._text),
-            //-     data[i].OperationalData.Faults._attributes.faultCount > 0 ? FaulttoStringArray(data[i].OperationalData.Faults.Fault) : '',
-            //-     parseInt(data[i].OperationalData.EndOfLifeEventCount._text)
-            // ])
-            //  DataArray.push(temp);
-            //temp.splice(0);
-            // temp.splice(0);
         }
-
-        // console.log(DataArray);
         res.json({
             "data": DataArray,
             "chart": [avg_of_starts, avg_of_transfers, avg_of_arc_hours]
         });
 
-        //fs.writeFileSync('./test.txt', DataArray);
-        // console.log(DataArray);
     })
 
 })
@@ -143,16 +112,20 @@ app.get('/item', function (req, res) {
 //     res.sendFile(path.join(__dirname, 'views', 'Account.html'));
 // })
 
-app.get('/:name', function (req, res) {
-    res.sendFile(path.join(__dirname, 'views', req.params.name));
+app.get('/:name', defender, function (req, res) {
+    if (req.params.name == 'data') res.sendFile(path.join(__dirname, 'views', 'DataReplicated.html'));
+    else res.sendFile(path.join(__dirname, 'views', req.params.name));
 })
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'views', 'DataReplicated.html'));
-    //console.log(true);
+    res.sendFile(path.join(__dirname, 'views', 'Account.html'));
 })
 
 
+
+app.get('/data', defender, function (req, res) {
+    res.sendFile(path.join(__dirname, 'views', 'DataReplicated.html'));
+})
 
 //Login and Reg. Routes
 
@@ -167,10 +140,10 @@ mongoose.connect(config.MONGODB_URL, {
 });
 
 let sign_in = require('./routes/sign_in'),
-    sign_up = require('./routes/sign_up');
+    sign_up = require('./routes/sign_up'),
+    logout = require('./routes/logout');
 
-app.use('/user', [sign_in, sign_up]);
-
+app.use([sign_in, sign_up, logout]);
 
 
 

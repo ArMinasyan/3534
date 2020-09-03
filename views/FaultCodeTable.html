@@ -28,7 +28,7 @@
 
         <form id="filter" class="form-inline d-flex md-form my-3">
           <div class="form-row">
-       
+
             <div class="col">
               <select id="filter_value" class="browser-default custom-select">
                 <option>Find By</option>
@@ -42,7 +42,7 @@
             </div>
           </div>
         </form>
-
+        <i class="fas fa-sign-out-alt fa-lg" id="logout">LogOut</i>
         <!-- Collapse -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,46 +88,46 @@
         </div>
       </a>
 
-        <!-- list group -->
-        <div class="list-group list-group-flush">
-          <a href="Summary.html" class="list-group-item list-group-item-action waves-effect">
-              <i class="fas fa-pencil-alt mr-3"></i>
+      <!-- list group -->
+      <div class="list-group list-group-flush">
+        <a href="Summary.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-pencil-alt mr-3"></i>
 
-              <span>Summary report</span>
-          </a>
-          <a href="DataReplicated.html" class="list-group-item list-group-item-action waves-effect">
-              <i class="fas fa-digital-tachograph mr-3"></i>
-              <span>Data Replicated</span>
-          </a>
-          <a href="charts.html" class="list-group-item list-group-item-action waves-effect">
-              <i class="fas fa-chart-bar mr-3"></i>
-              <span>Charts</span>
-          </a>
-          <a href="CartrigeTable.html" class="list-group-item list-group-item-action waves-effect">
-              <i class="fas fa-chart-pie mr-3"></i>
-              <span>Cartridge</span>
-          </a>
-          <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
+          <span>Summary report</span>
+        </a>
+        <a href="DataReplicated.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-digital-tachograph mr-3"></i>
+          <span>Data Replicated</span>
+        </a>
+        <a href="charts.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-chart-bar mr-3"></i>
+          <span>Charts</span>
+        </a>
+        <a href="CartrigeTable.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-chart-pie mr-3"></i>
+          <span>Cartridge</span>
+        </a>
+        <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
               <i class="fas fa-chart-line mr-3"></i>
               <span>Criteria</span>
           </a> -->
-          <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
+        <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
               <i class="fas fa-clipboard-list mr-3"></i>
               <span>EU List</span>
           </a> -->
-          <a href="TorchTable.html" class="list-group-item list-group-item-action waves-effect">
-              <i class="fas fa-table mr-3"></i>
-              <span>Torch table</span>
-          </a>
-          <a href="FaultCodeTable.html" class="list-group-item list-group-item-action waves-effect active-link">
-              <i class="fas fa-file-code mr-3"></i>
-              <span>Fault Code Table</span>
-          </a>
-          <a href="PowerSupplyTable.html" class="list-group-item list-group-item-action waves-effect">
-              <i class="fas fa-tablets mr-3"></i>
-              <span>Power supply table</span>
-          </a>
-          <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
+        <a href="TorchTable.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-table mr-3"></i>
+          <span>Torch table</span>
+        </a>
+        <a href="FaultCodeTable.html" class="list-group-item list-group-item-action waves-effect active-link">
+          <i class="fas fa-file-code mr-3"></i>
+          <span>Fault Code Table</span>
+        </a>
+        <a href="PowerSupplyTable.html" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-tablets mr-3"></i>
+          <span>Power supply table</span>
+        </a>
+        <!-- <a href="about.html" class="list-group-item list-group-item-action waves-effect">
               <i class="fas fa-border-all mr-3"></i>
               <span>Cartridge table</span>
           </a> -->
@@ -949,8 +949,18 @@
   <script src="https://maps.google.com/maps/api/js"></script>
 
   <script>
+    $(document).on('click', '#logout', function () {
+      $.ajax({
+        url: '/logout',
+        method: 'DELETE',
+        success: function (data) {
+          if (!data.login) window.location.href = '/';
+        }
+      })
+    })
+
     // $(document).ready(function () {
-      
+
     //   $('#FaultCodeTable').DataTable()
     // })
   </script>

@@ -17,7 +17,7 @@
     <link href="css/custom.css" rel="stylesheet">
 
     <link href="css/addons/datatables.min.css" rel="stylesheet">
-  <link href="css/addons/datatables-select.min.css" rel="stylesheet">
+    <link href="css/addons/datatables-select.min.css" rel="stylesheet">
 </head>
 
 <body class="lighten-3">
@@ -47,7 +47,7 @@
                     </div>
 
                 </form>
-
+                <i class="fas fa-sign-out-alt fa-lg" id="logout">LogOut</i>
                 <!-- Collapse -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -148,9 +148,9 @@
                                 <tr>
                                     <th scope="row">1</th>
                                     <td> 428936 </td>
-                                    <td > Cartridge:SmartSYNC or Duramax Adapter 105 A Mechanized Cutting</td>
-                                    <td > Mechanized </td>
-                                    <td > SmartSYNC 105 A Mechanized Cutting Cartridge </td>
+                                    <td> Cartridge:SmartSYNC or Duramax Adapter 105 A Mechanized Cutting</td>
+                                    <td> Mechanized </td>
+                                    <td> SmartSYNC 105 A Mechanized Cutting Cartridge </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
@@ -306,11 +306,11 @@
                         <table id="CartrigeType" class="table table-striped" class="display" width="100%">
                             <tbody>
                                 <tr>
-                                    <th scope="row"  class="text-center">1</th>
+                                    <th scope="row" class="text-center">1</th>
                                     <td class="text-center"> G RMVL</td>
                                     <td class="text-center"> Handheld</td>
                                 </tr>
-                                
+
                                 <tr>
                                     <th scope="row" class="text-center">2</th>
                                     <td class="text-center">C MECH</td>
@@ -353,18 +353,28 @@
     <script src="js/addons/datatables-select.min.js" type="text/javascript"></script>
     <script type="javascript" charset="utf8" src="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"></script>
     <script type="javascript" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-  
-  
-  <script>
-      $(document).ready(function () {
-          $('#CartrigeType').DataTable({
-              "columnDefs": [{
-                  "targets": [0,2,3,4],
-                  "searchable": false
-              }]
-          });
-      })
-  </script>
+
+
+    <script>
+        $(document).on('click', '#logout', function () {
+            $.ajax({
+                url: '/logout',
+                method: 'DELETE',
+                success: function (data) {
+                    if (!data.login) window.location.href = '/';
+                }
+            })
+        })
+
+        $(document).ready(function () {
+            $('#CartrigeType').DataTable({
+                "columnDefs": [{
+                    "targets": [0, 2, 3, 4],
+                    "searchable": false
+                }]
+            });
+        })
+    </script>
 </body>
 
 </html>

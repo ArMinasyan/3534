@@ -58,7 +58,7 @@
           </div>
 
         </form>
-
+        <i class="fas fa-sign-out-alt fa-lg" id="logout">LogOut</i>
 
         <!-- Collapse -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -310,7 +310,15 @@
 
 
 <script>
-
+  $(document).on('click', '#logout', function () {
+    $.ajax({
+      url: '/logout',
+      method: 'DELETE',
+      success: function (data) {
+        if (!data.login) window.location.href = '/';
+      }
+    })
+  })
   $(document).ready(function () {
     $.get('/item', function (res) {
       //console.log(res.data);

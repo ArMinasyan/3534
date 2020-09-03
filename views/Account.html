@@ -185,13 +185,10 @@
         let username = $('#email').val(),
             password = $('#password').val();
 
-        $.post('/user/login', { email: username, password: password }, function (data) {
-            //  console.log(data);
+        $.post('/login', { email: username, password: password }, function (data) {
             $('#login_error').text(data.msg);
-            if (data.login == true) {
-                sessionStorage.setItem('token', data.token);
-                window.location.href = '/data';
-            }
+            if (data.login == true) window.location.href = '/data';
+
         })
     })
 </script>
