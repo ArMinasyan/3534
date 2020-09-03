@@ -6,8 +6,7 @@ let reg_validation = [
     body('confirm_password').trim().not().isEmpty().withMessage('Confirm password field is required').custom((val, { req }) => {
         if (val != req.body.password) throw new Error('Password confirmation does not match password');
         else return true
-    }),
-    body('type').trim().not().isEmpty().withMessage('Type field is required'),
+    })
 ]
 
 let log_validation = [

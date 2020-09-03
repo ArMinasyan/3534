@@ -54,7 +54,7 @@
                         <div class="tab-pane fade in show active" id="loginPanel" role="tabpanel">
                             <!-- Form -->
                             <!-- Default form login -->
-                            <form class="text-center border border-light p-5" action="#!">
+                            <form class="text-center border border-light p-5">
 
                                 <p class="h4 mb-4">Sign in</p>
 
@@ -82,64 +82,56 @@
                         <div class="tab-pane fade" id="RegistrPanel" role="tabpanel">
 
                             <!-- Default form register -->
-                            <form class="text-center border border-light p-5" action="#!">
+                            <form class="text-center border border-light p-5">
 
                                 <p class="h4 mb-4">Sign up</p>
 
                                 <div class="form-group">
                                     <!-- E-mail -->
-                                    <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4"
-                                        placeholder="E-mail">
-                                    <small id="defaultRegisterFormFirstName"
-                                        class="form-text text-danger text-muted mb-4">
-                                        At least 8 characters and 1 digit
-                                    </small>
+                                    <input type="email" id="reg_email" class="form-control mb-4" placeholder="E-mail">
+                                    <large id="reg_email_error" class="form-text text-danger text-muted mb-4"></large>
                                 </div>
 
                                 <div class="form-group">
                                     <!-- Password -->
-                                    <input type="password" id="defaultRegisterFormPassword" class="form-control"
-                                        placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-                                    <small id="defaultRegisterFormPasswordHelpBlock"
-                                        class="form-text text-danger text-muted mb-4">
-                                        At least 8 characters and 1 digit
-                                    </small>
+                                    <input type="password" id="reg_password" class="form-control" placeholder="Password"
+                                        aria-describedby="reg_passwordPasswordHelpBlock">
+                                    <large id="reg_password_error" class="form-text text-danger text-muted mb-4">
+                                    </large>
                                 </div>
                                 <div class="form-group">
-                                    <!-- Confirme Password -->
-                                    <input type="password" id="defaultRegisterFormPassword" class="form-control"
+                                    <input type="password" id="reg_confirm_password" class="form-control"
                                         placeholder="Confirm Password"
-                                        aria-describedby="defaultRegisterFormPasswordHelpBlock" />
-                                    <small id="defaultRegisterFormPasswordHelpBlock"
-                                        class="form-text text-danger text-muted mb-4">
-                                        At least 8 characters and 1 digit
-                                    </small>
+                                        aria-describedby="reg_confirm_passwordPasswordHelpBlock" />
+                                    <large id="reg_confirm_password_error"
+                                        class="form-text text-danger text-muted mb-4"></large>
 
                                 </div>
 
 
 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <div class="d-flex justify-content-around">
-                                        <!-- Default unchecked -->
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="RadioUser"
-                                                name="defaultExampleRadios">
-                                            <label class="custom-control-label" for="RadioUser"> User </label>
-                                        </div>
-
-                                        <!-- Default checked -->
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="RadioAddmin"
-                                                name="defaultExampleRadios" checked>
-                                            <label class="custom-control-label" for="RadioAddmin"> Addmin </label>
-                                        </div>
-                                    </div>
+                                        
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="RadioUser"
+                                        name="defaultExampleRadios">
+                                    <label class="custom-control-label" for="RadioUser"> User </label>
                                 </div>
+
+                                
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="RadioAddmin"
+                                        name="defaultExampleRadios" checked>
+                                    <label class="custom-control-label" for="RadioAddmin"> Addmin </label>
+                                </div>
+                        </div>
+                    </div> -->
 
 
                                 <!-- Sign up button -->
-                                <button class="btn btn-info my-4 btn-block" type="submit">Sign up</button>
+                                <large id="reg_error" class="form-text text-danger text-muted mb-4"></large>
+                                <button class="btn btn-info my-4 btn-block" type="button" id="sign_up">Sign up</button>
 
 
 
@@ -189,6 +181,24 @@
             $('#login_error').text(data.msg);
             if (data.login == true) window.location.href = '/data';
 
+        })
+    })
+
+    $(document).on('click', '#sign_up', function () {
+        let username = $('#reg_email').val(),
+            password = $('#reg_password').val(),
+            confirm_password = $('#reg_confirm_password').val();
+
+
+        $.post('/registration', { email: username, password: password, confirm_password: confirm_password }, function (data) {
+            console.log(data);
+            // console.log('reg_' + data.param + '_error');
+            $('#reg_email_error').text('');
+            $('#reg_password_error').text('');
+            $('#reg_confirm_password_error').text('');
+            $('#reg_error').text('');
+            if (data.param) $('#reg_' + data.param + '_error').text(data.msg); else $('#reg_error').text(data.msg);
+            if (data.login) window.location.href = '/data';
         })
     })
 </script>
