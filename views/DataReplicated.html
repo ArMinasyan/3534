@@ -19,10 +19,8 @@
 
   <!-- Style Custom style -->
   <link href="css/custom.css" rel="stylesheet">
-  <!-- Datatable -->
-  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/> -->
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body class="lighten-3">
@@ -33,26 +31,6 @@
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar py-4">
       <div class="container-fluid">
-
-        <form id="filter" class="form-inline d-flex md-form my-3">
-          <!-- <div class="form-row">
-            <div class="col form-content d-flex justify-content-center">
-
-
-              <select id="filter_value" class="browser-default custom-select">
-                <option>Find By</option>
-                <option value="assetId">Asset ID</option>
-                <option value="UUID">UUID</option>
-                <option value="ManufacturingDate">Manufacturing Date</option>
-                <option value="manufacturer">Manufacturer</option>
-                <option value="serialNumber">Serial Number</option>
-              </select>
-
-            </div>
-          </div> -->
-
-        </form>
-
 
         <!-- Collapse -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -195,7 +173,7 @@
     </div>
   </main>
   <!-- Main -->
-  <div id="dialog_avg" hidden title="Average Result">
+  <div id="dialog_avg" hidden title="Average Result" class="card">
     <div>
       Starts: <span id="SAvg"></span>
     </div>
@@ -291,17 +269,8 @@
 <!-- MDB core JavaScript -->
 <script src="js/mdb.min.js"></script>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- Initializations -->
-<!-- <script src="js/custom.js"></script> -->
-<!-- MDBootstrap Datatables  -->
-<!-- <script type="javascript" src="js/addons/datatables.min.js"></script> -->
-<!-- <script type="javascript" src="js/addons/datatables-select.js"></script> -->
-<!-- <script type="javascript" src="js/addons/datatables-select.min.js"></script> -->
-<!-- <script type="javascript" src="js/addons/datatables.js"></script> -->
-
-
 <script>
   $(document).on('click', '#logout', function () {
     $.ajax({
@@ -325,9 +294,14 @@
         "scrollX": true,
         "columnDefs": [{
           'visible': false,
-          'targets': [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+
+          'targets': [11, 12, 13, 14, 15, 16, 17, 18]
         }],
         'columnDefs': [
+          {
+            'className': "text-center",
+            'targets': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          },
           {
             'targets': 0,
             'searchable': false,
