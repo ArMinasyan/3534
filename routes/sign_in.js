@@ -7,6 +7,8 @@ let user = require('../models/user');
 let bcrypt = require('bcrypt');
 
 route.post('/login', [valid.log_validation], function (req, res) {
+    let date = new Date();
+
     let vr = validationResult(req);
     if (!vr.isEmpty()) res.send(vr.errors[0]);
     else {
@@ -18,10 +20,11 @@ route.post('/login', [valid.log_validation], function (req, res) {
                         //console.log(token);
                         res.cookie("token", token, {
                             sameSite: true,
-                            httpOnly: true
+                            httpOnly: true,
+                            maxAge: 10 * 36000
                         });
                         res.json({ "login": true });
-                        
+
                     } else res.json({ "msg": "Incorrect email and/or password" });
                 })
             } else res.json({ "msg": "Incorrect email and/or password" });

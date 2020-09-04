@@ -62,16 +62,13 @@
 
         <!-- Links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
           <ul class="navbar-nav nav-flex-icons ml-auto">
             <li class="nav-item border-left border-right">
               <a href="#" class="nav-link waves-effect">
                 <i class="fas fa-sign-out-alt fa-lg" id="logout">LogOut</i>
               </a>
             </li>
-
           </ul>
-
         </div>
 
       </div>
@@ -99,7 +96,7 @@
           <i class="fas fa-digital-tachograph mr-3"></i>
           <span>Data Replicated</span>
         </a>
-        <a href="charts.html" class="list-group-item list-group-item-action waves-effect">
+        <a href="Charts.html" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-bar mr-3"></i>
           <span>Charts</span>
         </a>
@@ -158,9 +155,9 @@
             <table id="Live" class="table table-striped" class="display" width="100%">
               <thead>
                 <tr>
+                  <th> </th>
                   <th class="th-sm text-center">Manufacturer</th>
                   <th class="th-sm text-center">Asset ID</th>
-
                   <th class="th-sm text-center">UUID</th>
                   <th class="th-sm text-center">EOL</th>
                   <th class="th-sm text-center">ArcTime</th>
@@ -176,9 +173,9 @@
               </tbody>
               <tfoot>
                 <tr>
+                  <th></th>
                   <th class="th-sm text-center">Manufacturer</th>
                   <th class="th-sm text-center">Asset ID</th>
-
                   <th class="th-sm text-center">UUID</th>
                   <th class="th-sm text-center">EOL</th>
                   <th class="th-sm text-center">ArcTime</th>
@@ -198,6 +195,14 @@
     </div>
   </main>
   <!-- Main -->
+  <div id="dialog_avg" hidden title="Average Result">
+    <div>
+      Starts: <span id="SAvg"></span>
+    </div>
+    <div>
+      Transfers: <span id="TAvg"></span>
+    </div>
+  </div>
 
   <div id="dialog" hidden title="More Result" class="d-flex justify-content-between">
     <div class="">
@@ -308,9 +313,12 @@
     })
   })
   $(document).ready(function () {
-    //$('#diallog').last().hide();
+    $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
+    if ($('#Live tbody tr').hasClass('selected')) {
+      console.log($('#Live tbody tr').attr('td'))
+    }
     $.get('/item', function (res) {
-      //console.log(res.data);
+
       $('#Live').DataTable({
         serverside: true,
         data: res.data,
@@ -319,22 +327,58 @@
           'visible': false,
           'targets': [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
         }],
+        'columnDefs': [
+          {
+            'targets': 0,
+            'searchable': false,
+            'orderable': false,
+            'sortable': false,
+            'width': "3%",
+            'render': function (data, type, row, meta) {
+              if (type === 'display') data = '<div><input type="checkbox" class="dt-checkboxes"></div>';
+              return data
+            },
+            'checkboxes': {
+              'selectRow': true,
+            }
+          }
+        ],
       });
 
       let str
-      //console.log(res.data);
-      res.data.forEach(elem => {
-        console.log(elem[7], elem[8]);
-      })
+
       sessionStorage.setItem("avg_of_starts", res.chart[0]);
       sessionStorage.setItem("avg_of_transfers", res.chart[1])
       sessionStorage.setItem("avg_of_arc_hours", res.chart[2])
     })
   });
 
-  $('#Live tbody').on('click', 'tr', function () {
+  let st_avg = 0, st_tr = 0;
+  $(document).on('change', '#Live tbody tr', function (e) {
+
+    $("#dialog_avg").dialog();
+
+    $('#dialog_avg').removeAttr("hidden")
+
+    console.log(parseInt($('#Live').DataTable().row(this).data()[9]));
+
+    if ($(this).hasClass('checked')) {
+      st_avg -= parseInt($('#Live').DataTable().row(this).data()[8]);
+      st_tr -= parseInt($('#Live').DataTable().row(this).data()[9]);
+      $(this).removeClass('checked');
+    } else {
+      st_avg += parseInt($('#Live').DataTable().row(this).data()[8]);
+      st_tr += parseInt($('#Live').DataTable().row(this).data()[9]);
+      $(this).addClass('checked');
+    }
+    $('#SAvg').text(st_avg);
+    $('#TAvg').text(st_tr);
+  })
+
+  $('#Live tbody').on('dblclick', 'tr', function () {
+
+
     let data = $('#Live').DataTable().row(this).data();
-    //console.log(data);
 
     $("#manufacturer").text(data[0]);
     $("#assetId").text(data[1]);
@@ -368,17 +412,7 @@
     ownChart(parseInt(data[6]), parseInt(data[7]))
 
 
-    //console.log(data);
-    //$(this).css('height', "300px");
-    //$(this).insertBefore('<tr><td>Hello</td></tr>')
-    // $('<tr>' +
-    //   '<div class="offset-4 col-4">' +
-    //   '<div class="card card-body">' +
-    //   '<canvas id="doughnutChart" height="100"></canvas> ' +
-    //   '</div>' +
-    //   '</div>' +
-    //   '</tr>'
-    // ).insertBefore(row);
+
   });
 
 

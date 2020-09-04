@@ -6,7 +6,10 @@ let defender = (req, res, next) => {
     if (token) {
         jwt.verify(token, fs.readFileSync('./keys/Public.key'), function (err, decode) {
             if (err || !decode) return false;
-            else return next()
+            else {
+                res.locals.id = decode.id;
+                return next()
+            }
         })
     } else return false
 }
