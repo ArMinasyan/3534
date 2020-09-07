@@ -13,8 +13,10 @@ route.get('/confirm/:email/:token', function (req, res) {
                 httpOnly: true,
                 maxAge: 10 * 36000
             });
+
+            res.setHeader("Location", '/data');
             //   res.redirect('/data');
-            req.url = '/data';
+            //req.url = '/data';
         }
         else res.redirect('/');
     })
