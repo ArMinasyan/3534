@@ -156,8 +156,7 @@
             password = $('#password').val(),
             token = '';
 
-        if ($('#token').attr('hidden') == undefined) token = $('#token').val();
-        console.log(token);
+        if ($('#token').attr('hidden') === undefined) token = $('#token').val();
         if (token != '') {
             $.post('/confirm', { email: username, token: token }, function (data) {
                 $('#login_error').text(data.msg);
