@@ -19,8 +19,11 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
+    "googleapis": "^59.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.2",
+    "nodemailer": "^6.4.11",
+    "randomstring": "^1.1.5",
     "underscore": "^1.11.0",
     "xml-js": "^1.6.11"
   },

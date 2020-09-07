@@ -45,9 +45,10 @@ let sign_in = require('./routes/sign_in'),
     sign_up = require('./routes/sign_up'),
     logout = require('./routes/logout'),
     item = require('./routes/item'),
+    confirm = require('./routes/confirm'),
     main = require('./routes/main');
 
-app.use([sign_in, sign_up, logout, item, main]);
+app.use([sign_in, sign_up, logout, item, main, confirm]);
 
 
 
