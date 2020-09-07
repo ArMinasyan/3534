@@ -3,17 +3,12 @@ let defender = require('../config/defender');
 let path = require('path');
 
 route.get('/:name', defender, function (req, res) {
-    console.log(req.params.name);
     if (req.params.name == 'data') res.sendFile(path.join(__dirname, '../views', 'DataReplicated.html'));
     else res.sendFile(path.join(__dirname, '../views', req.params.name));
-
 })
 
 route.get('/', function (req, res) {
-    if (req.cookies.token) {
-        defender(req, res, next);
-        res.sendFile(path.join(__dirname, '../', 'views', 'DataReplicated.html'));
-    } else res.sendFile(path.join(__dirname, '../views', 'Account.html'));
+    res.sendFile(path.join(__dirname, '../views', 'Account.html'));
 })
 
 
