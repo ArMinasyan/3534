@@ -11,10 +11,10 @@ route.get('/confirm/:email/:token', function (req, res) {
             res.cookie("token", token, {
                 sameSite: true,
                 httpOnly: true,
-                maxAge: 10 * 36000,
-                path: '/data'
+                maxAge: 10 * 36000
             });
-            res.redirect('/data');
+            //   res.redirect('/data');
+            req.url = '/data';
         }
         else res.redirect('/');
     })
