@@ -7,23 +7,25 @@ let bcrypt = require('bcrypt');
 
 route.post('/confirm', function (req, res) {
 
-    user.findOneAndUpdate({ $and: [{ email: req.body.email }, { token: req.body.token }, { password: bcrypt.hashSync(req.body.password, 10) }] }, { token: '-' }, function (err, doc) {
-
-
+    user.findOne({ email: req.body.email }, function (err, doc) {
         if (doc) {
+            bcrypt.compare(req.body.password, doc.password, function (err, same) {
+                if (same) {
+                    user.findOneAndUpdate({ $and: [{ email: req.body.email }, { token: req.body.token }] }, { token: '-' }, function (err, doc) {
+                        if (doc) {
+                            let token = jwt.sign({ id: doc._id, time: Date.now() }, fs.readFileSync('./keys/Private.key'), { algorithm: "RS512" });
+                            res.cookie("token", token, {
+                                sameSite: true,
+                                httpOnly: true,
+                                maxAge: 10 * 36000
+                            });
 
-            let token = jwt.sign({ id: doc._id, time: Date.now() }, fs.readFileSync('./keys/Private.key'), { algorithm: "RS512" });
-            res.cookie("token", token, {
-                sameSite: true,
-                httpOnly: true,
-                maxAge: 10 * 36000
-            });
-
-            res.json({ 'login': true })
-
-
-
-        } else res.json({ 'msg': "Invalid token and/or username/password" });
+                            res.json({ 'login': true })
+                        } else res.json({ 'msg': "Invalid token" });
+                    })
+                }
+            })
+        } else res.json({ 'msg': "Invalid username and/or password" })
     })
 })
 
