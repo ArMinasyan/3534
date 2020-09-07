@@ -10,9 +10,7 @@ $(document).on('click', '#logout', function () {
 
 $(document).ready(function () {
     $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
-    if ($('#Live tbody tr').hasClass('selected')) {
-        console.log($('#Live tbody tr').attr('td'))
-    }
+   
     $.get('/item', function (res) {
 
         $('#Live').DataTable({

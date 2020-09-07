@@ -161,7 +161,6 @@
             $.post('/confirm', { email: username, token: token }, function (data) {
                 $('#login_error').text(data.msg);
                 if (data.login === true) window.location.href = '/data';
-
             })
         } else {
             $.post('/login', { email: username, password: password }, function (data) {
@@ -181,8 +180,6 @@
 
 
         $.post('/registration', { email: username, password: password, confirm_password: confirm_password }, function (data) {
-            console.log(data);
-            // console.log('reg_' + data.param + '_error');
             $('#reg_email_error').text('');
             $('#reg_password_error').text('');
             $('#reg_confirm_password_error').text('');

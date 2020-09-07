@@ -105,13 +105,6 @@ $(document).ready(function (e) {
 
 $(document).ready(function (e) {
   $.get('/item').then(function (data) {
-    console.log({
-      "Starts that didn't transfer": data.avg_of_starts,
-      "Starts that didn't transfer %": Math.round((data.avg_of_starts / data.avg_of_st) * 100),
-      'Starts that transferred': data.avg_of_transfers,
-      'Starts that transferred %': Math.round((data.avg_of_transfers / data.avg_of_st) * 100),
-      'Average number of start': data.avg_of_st,
-    });
     data.forEach((item, index) => {
       $('#transferchart').append(
         '<tr>' +

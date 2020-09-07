@@ -18,7 +18,6 @@ route.post('/login', [valid.log_validation], function (req, res) {
                     bcrypt.compare(req.body.password, result.password, function (err, same) {
                         if (!err && same) {
                             let token = jwt.sign({ id: result._id, time: Date.now() }, fs.readFileSync('./keys/Private.key'), { algorithm: "RS512" });
-                            //console.log(token);
                             res.cookie("token", token, {
                                 sameSite: true,
                                 httpOnly: true,

@@ -58,13 +58,7 @@ route.get('/item', defender, function (req, res) {
             ])
         }
 
-        // let token = jwt.sign({ id: res.locals.id, time: Date.now() }, fs.readFileSync('./keys/Private.key'), { algorithm: "RS512" });
-        //console.log(token);
-        //res.cookie("token", token, {
-        //    sameSite: true,
-        //    httpOnly: true,
-        //    maxAge: 10 * 36000
-        // });
+
         res.json({
             "data": DataArray,
             "chart": [avg_of_starts, avg_of_transfers, avg_of_arc_hours]
