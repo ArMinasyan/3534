@@ -307,9 +307,12 @@
             'searchable': false,
             'orderable': false,
             'sortable': false,
-            'width': "3%",
+            'width': "13%",
             'render': function (data, type, row, meta) {
-              if (type === 'display') data = '<div><input type="checkbox" class="dt-checkboxes"></div>';
+              if (type === 'display') data = '<div class="float-left">' +
+                '<input type="checkbox" class="dt-checkboxes">' +
+                '<button class="btn btn-primary btn-sm">Show Chart</button>' +
+                '</div>';
               return data
             },
             'checkboxes': {
@@ -334,7 +337,6 @@
 
     $('#dialog_avg').removeAttr("hidden")
 
-    console.log(parseInt($('#Live').DataTable().row(this).data()[9]));
 
     if ($(this).hasClass('checked')) {
       st_avg -= parseInt($('#Live').DataTable().row(this).data()[8]);
@@ -349,11 +351,11 @@
     $('#TAvg').text(st_tr);
   })
 
-  $('#Live tbody').on('dblclick', 'tr', function () {
+  $('#Live tbody').on('click', 'button', function () {
 
 
-    let data = $('#Live').DataTable().row(this).data();
-
+    let data = $('#Live').DataTable().row($(this).parent().parent().parent()).data();
+    console.log(data);
     $("#manufacturer").text(data[0]);
     $("#assetId").text(data[1]);
     $("#UUID").text(data[2]);
@@ -383,7 +385,7 @@
 
     $('#dialog').removeAttr("hidden")
 
-    ownChart(parseInt(data[6]), parseInt(data[7]))
+    ownChart(parseInt(data[8]), parseInt(data[9]))
 
 
 
