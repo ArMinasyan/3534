@@ -14,7 +14,7 @@ route.get('/confirm/:email/:token', function (req, res) {
                 maxAge: 10 * 36000
             });
 
-            res.redirect('/data');
+            res.redirect('/');
         }
         else res.redirect('/');
     })
