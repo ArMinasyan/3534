@@ -8,7 +8,8 @@ route.get('/:name', defender, function (req, res) {
 })
 
 route.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../views', 'Account.html'));
+    if (req.cookies.token) res.sendFile(path.join(__dirname, '../', 'views', 'DataReplicated.html')); else
+        res.sendFile(path.join(__dirname, '../views', 'Account.html'));
 })
 
 
