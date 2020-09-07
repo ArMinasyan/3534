@@ -34,7 +34,7 @@ let send = async (to, token) => {
             html:
                 '<p style="font-size: 16px; text-align: center;">Hi, dear user</p>' +
                 '<p style="font-size: 16px; text-align: center;">This is your account confirmation email&nbsp;</p>' +
-                '<p style="font-size: 18px; text-align: center;"><button href=' + 'https://hypertherm.herokuapp.com/confirm/' + to + '/' + token + '>Confirm</button></p>' +
+                '<p style="font-size: 18px; text-align: center;"><a href=' + 'https://hypertherm.herokuapp.com/confirm/' + to + '/' + token + '>Confirm account</a></p>' +
                 '<p style="text-align: center;">Click on that url, for "Confirm Account"</p>',
             subject: 'Email Verification',
             generateTextFromHTML: true
