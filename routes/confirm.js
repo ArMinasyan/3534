@@ -3,7 +3,7 @@ let user = require('../models/user');
 let jwt = require('jsonwebtoken');
 let fs = require('fs');
 let path = require('path');
-route.get('/confirm', function (req, res) {
+route.get('/confirm/:email/:token', function (req, res) {
     user.findOneAndUpdate({ $and: [{ email: req.params.email }, { token: req.params.token }] }, { token: '-' }, function (err, doc) {
 
         if (doc) {
