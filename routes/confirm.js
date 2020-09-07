@@ -2,7 +2,7 @@ let route = require('express').Router();
 let user = require('../models/user');
 let jwt = require('jsonwebtoken');
 let fs = require('fs');
-
+let path = require('path');
 route.get('/confirm/:email/:token', function (req, res) {
     user.findOneAndUpdate({ $and: [{ email: req.params.email }, { token: req.params.token }] }, { token: '-' }, function (err, doc) {
 
