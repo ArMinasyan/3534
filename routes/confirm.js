@@ -15,9 +15,9 @@ route.get('/confirm/:email/:token', function (req, res) {
             });
 
             //res.setHeader("Location", '/data');
-            //   res.redirect('/data');
+            res.redirect('/data');
             //req.url = '/data';
-            res.sendFile(path.join(__dirname, '../', 'views', 'DataReplicated.html'));
+            //res.sendFile(path.join(__dirname, '../', 'views', 'DataReplicated.html'));
         }
         else res.redirect('/');
     })
