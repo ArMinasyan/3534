@@ -158,7 +158,7 @@
 
         if ($('#token').attr('hidden') === undefined) token = $('#token').val();
         if (token != '') {
-            $.post('/confirm', { email: username, token: token }, function (data) {
+            $.post('/confirm', { email: username, token: token, password: password }, function (data) {
                 $('#login_error').text(data.msg);
                 if (data.login === true) window.location.href = '/data';
             })
