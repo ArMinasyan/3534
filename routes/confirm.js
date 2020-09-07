@@ -14,10 +14,7 @@ route.get('/confirm/:email/:token', function (req, res) {
                 maxAge: 10 * 36000
             });
 
-            //res.setHeader("Location", '/data');
             res.redirect('/data');
-            //req.url = '/data';
-            //res.sendFile(path.join(__dirname, '../', 'views', 'DataReplicated.html'));
         }
         else res.redirect('/');
     })
