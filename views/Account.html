@@ -63,6 +63,7 @@
 
                                 <!-- Password -->
                                 <input type="password" id="password" class="form-control mb-4" placeholder="Password">
+                                <input hidden type="text" id="token" class="form-control mb-4" placeholder="Token">
                                 <large id="login_error" class="form-text text-danger text-muted mb-4"> </large>
 
 
@@ -152,13 +153,26 @@
 <script>
     $(document).on('click', '#sign_in', function () {
         let username = $('#email').val(),
-            password = $('#password').val();
+            password = $('#password').val(),
+            token = '';
 
-        $.post('/login', { email: username, password: password }, function (data) {
-            $('#login_error').text(data.msg);
-            if (data.login == true) window.location.href = '/data';
+        if ($('#token').attr('hidden') == undefined) token = $('#token').val();
+        console.log(token);
+        if (token != '') {
+            $.post('/confirm', { email: username, token: token }, function (data) {
+                $('#login_error').text(data.msg);
+                if (data.login === true) window.location.href = '/data';
 
-        })
+            })
+        } else {
+            $.post('/login', { email: username, password: password }, function (data) {
+                $('#login_error').text(data.msg);
+                if (data.code === false) $('#token').removeAttr('hidden');
+                if (data.login === true) window.location.href = '/data';
+
+            })
+        }
+
     })
 
     $(document).on('click', '#sign_up', function () {

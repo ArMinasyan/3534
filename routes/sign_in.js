@@ -28,7 +28,7 @@ route.post('/login', [valid.log_validation], function (req, res) {
 
                         } else res.json({ "msg": "Incorrect email and/or password" });
                     })
-                } else res.json({ 'msg': "Please, confirm your email for login " })
+                } else res.json({ 'msg': "Please, confirm your email for login ", "code": false })
             } else res.json({ "msg": "Incorrect email and/or password" });
 
         })
