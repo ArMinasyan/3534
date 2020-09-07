@@ -6,6 +6,7 @@ let express = require('express'),
 let bodyparser = require('body-parser'),
     cookieparser = require('cookie-parser'),
 
+
     cors = require('cors'),
     path = require('path');
 
@@ -20,6 +21,8 @@ if (process.env.NODE_ENV.trim() == 'development') {
     config = require('./config.json').development;
 
 } else config = require('./config.json').production
+
+require('dotenv').config();
 
 let WhiteList = ['http://127.0.0.1:8000'];
 
