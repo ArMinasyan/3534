@@ -7,9 +7,10 @@ let bcrypt = require('bcrypt');
 
 route.post('/confirm', function (req, res) {
 
-    user.findOne({ email: req.body.email }, function (err, doc) {
-        if (doc) {
-            bcrypt.compare(req.body.password, doc.password, function (err, same) {
+    user.findOne({ email: req.body.email }, function (err, result) {
+        if (result) {
+            bcrypt.compare(req.body.password, result.password, function (err, same) {
+                console.log(same);
                 if (same) {
                     user.findOneAndUpdate({ $and: [{ email: req.body.email }, { token: req.body.token }] }, { token: '-' }, function (err, doc) {
                         if (doc) {
@@ -23,7 +24,7 @@ route.post('/confirm', function (req, res) {
                             res.json({ 'login': true })
                         } else res.json({ 'msg': "Invalid token" });
                     })
-                }
+                } else res.json({ 'msg': "Invalid username and/or password" })
             })
         } else res.json({ 'msg': "Invalid username and/or password" })
     })
