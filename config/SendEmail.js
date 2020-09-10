@@ -7,7 +7,7 @@ const oauth2Client = new OAuth2(process.env.CLIENT_ID, process.env.CLIENT_ID, "h
 
 oauth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
 
-const accessToken = oauth2Client.getAccessToken();
+
 let send_mail = mailer.createTransport({
     service: 'gmail',
     auth: {
@@ -16,7 +16,7 @@ let send_mail = mailer.createTransport({
         clientId: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         refreshToken: process.env.REFRESH_TOKEN,
-        accessToken: accessToken
+        accessToken: oauth2Client.getAccessTokenAsync
     }
 });
 
